@@ -1,0 +1,17 @@
+# temp visual studio dirs
+.vs/
+x64/
+Debug/
+Release/
+
+# user config files
+*.user
+*.suo
+
+# temp compilation files
+*.obj
+*.pdb
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
