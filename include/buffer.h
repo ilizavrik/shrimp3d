@@ -2,6 +2,7 @@
 #include<string.h> 
 #include<windows.h>
 #include<cmath>
+//struct for buffer
 struct BufferPoint {
 	int x;
 	int y;
@@ -10,6 +11,7 @@ struct BufferPoint {
 
 	}
 };
+//buffer lol, ur screen is here
 class Buffer {
 	char defaultChar = ' ';
 	char* self = nullptr;
@@ -22,9 +24,16 @@ public:
 	~Buffer() {
 		delete[] self;
 	}
-	Buffer(const Buffer&) = delete;
+	//NO COPY!!!!111!1!
+	Buffer(const Buffer&) = delete; 
 	Buffer& operator=(const Buffer&) = delete;
 
+	// -_- hmm idk what is this shit doing
+	void setDefChar(char c) {
+		defaultChar = c;
+	}
+
+	//resize lol
 	void resize(int h, int w) {
 		if (h <= 0 || w <= 0) return;
 
@@ -37,13 +46,13 @@ public:
 
 	}
 
+	//fills buffer with default character 
 	void clear() { 
-		//fills self with space 
 		if (!self) return;
 		memset(self, defaultChar, (size_t)height * width); }
 
+	//redraw screen with actual information 
 	void flip() { 
-		//redraw screen with actual information 
 		if (!self) return; 
 		COORD pos = { 0, 0 }; 
 		DWORD written = 0; 
@@ -55,12 +64,14 @@ public:
 			written );
 	}
 
+	//do i even have to explain this?
 	bool belongs(BufferPoint p) {
 		if (0 <= p.y && p.y < height && 0 <= p.x && p.x < width)
 			return true; 
 		else return false;
 	}
 
+	//draws a point
 	void drawaPoint(BufferPoint p, char c) {
 		if(!self) return;
 		if(!belongs(p)) return;
@@ -68,10 +79,8 @@ public:
 		self[width*p.y + p.x] = c;
 	}
 
-					//start           //end
+	//Bresenham's line algorithm
 	void drawaLine(BufferPoint p1, BufferPoint p2, char c) {
-		//Bresenham's line algorithm
-
 
 		int dx = std::abs(p2.x - p1.x);
 		int dy = std::abs(p2.y - p1.y);
