@@ -13,7 +13,7 @@ struct Mesh {
 	vector<Vec4> points;
 	vector<array<int, 3>> triangles;
 	map<char, TrigAng> angs;
-
+	fsfs
 	//default cube
 	Mesh() {
 	
