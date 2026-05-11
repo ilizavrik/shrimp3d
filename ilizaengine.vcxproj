@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\buffer.h" />
+    <ClInclude Include="include\linal.h" />
     <ClInclude Include="include\processor.h" />
     <ClInclude Include="include\runner.h" />
   </ItemGroup>
