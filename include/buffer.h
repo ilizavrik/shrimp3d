@@ -2,6 +2,7 @@
 #include<string.h> 
 #include<windows.h>
 #include<cmath>
+#include"linal.h"
 //struct for buffer
 struct BufferPoint {
 	int x;
@@ -71,6 +72,14 @@ public:
 		else return false;
 	}
 
+	//get buffer point from NDC
+	BufferPoint fromNDC(Vec4 v) {
+		int x = (int)((v[0] + 1.0f) * 0.5f * (float)(width - 1));
+		int y = (int)((1.0f - v[1]) * 0.5f * (float)(height - 1));
+		return { x, y };
+	}
+
+
 	//draws a point
 	void drawaPoint(BufferPoint p, char c) {
 		if(!self) return;
@@ -95,7 +104,7 @@ public:
 
 			int e2 = 2*err;
 
-			if (e2 >= dy) {
+			if (e2 >= -dy) {
 				err -= dy;
 				p1.x += sx;
 			}
@@ -105,5 +114,13 @@ public:
 			}
 
 		}
+	}
+
+	//triangle :3
+	void drawatriangle(BufferPoint p1, BufferPoint p2, BufferPoint p3, char c) {
+		drawaLine(p1, p2, c);
+		drawaLine(p1, p3, c);
+		drawaLine(p2, p3, c);
+
 	}
 };

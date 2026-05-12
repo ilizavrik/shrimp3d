@@ -1,6 +1,7 @@
-#include<iostream>
+#include"runner.h"
+#include"iostream"
 int main() {
 
-	std::cout << "i made a new project :3";
-
+	Runner rn;
+	 rn.run();
 }

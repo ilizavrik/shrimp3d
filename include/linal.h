@@ -3,7 +3,7 @@
 #include<math.h>
 const float PI = 3.141592653589793;
 inline float toRad(float deg) {
-	return deg * PI / 180;
+	return deg * PI / 180.0f;
 }
 
 struct TrigAng {

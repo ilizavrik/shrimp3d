@@ -12,8 +12,7 @@ struct Mesh {
 	Vec4 worldCords;
 	vector<Vec4> points;
 	vector<array<int, 3>> triangles;
-	map<char, TrigAng> angs;
-	fsfs
+	array<TrigAng, 3> angs;
 	//default cube
 	Mesh() {
 	
@@ -50,9 +49,9 @@ struct Mesh {
 
 		};
 
-		angs['x'].setang(0);
-		angs['y'].setang(0);
-		angs['z'].setang(0);
+		angs[0].setang(0);
+		angs[1].setang(0);
+		angs[2].setang(0);
 	}
 
 	//modelMatrix
@@ -62,24 +61,24 @@ struct Mesh {
 		rx = {
 			{
 			{1, 0, 0, 0},
-			{0, angs['x'].cs, angs['x'].sn, 0},
-			{0, -angs['x'].sn,angs['x'].cs, 0},
+			{0, angs[0].cs, angs[0].sn, 0},
+			{0, -angs[0].sn,angs[0].cs, 0},
 			{0, 0, 0, 1}
 			}
 		};
 		ry = {
 			{
-			{angs['y'].cs, 0, -angs['y'].sn, 0},
+			{angs[1].cs, 0, -angs[1].sn, 0},
 			{0, 1, 0, 0},
-			{angs['y'].sn, 0, angs['y'].cs, 0},
+			{angs[1].sn, 0, angs[1].cs, 0},
 			{0, 0, 0, 1}
 
 			}
 		};
 		rz = {
 			{
-			{angs['z'].cs, angs['z'].sn, 0, 0},
-			{-angs['z'].sn, angs['z'].cs, 0, 0},
+			{angs[2].cs, angs[2].sn, 0, 0},
+			{-angs[2].sn, angs[2].cs, 0, 0},
 			{0, 0, 1, 0},
 			{0, 0, 0, 1}
 			}
@@ -89,6 +88,6 @@ struct Mesh {
 		T(3, 1) = worldCords[1];
 		T(3, 2) = worldCords[2];
 
-		return T*rz*ry*rx;
+		return T * (rz * (ry * rx));
 	}
 };

@@ -9,7 +9,14 @@ class Runner {
 	CONSOLE_FONT_INFOEX cfi;
 
 	Buffer buf;
-	short Hei = 60, Wid = 240;
+	short Hei = 120, Wid = 480;
+	float a = ((float)Hei / Wid)*2;
+
+	const float FOV = 90;
+	float f = 1 / (tan(toRad(FOV / 2)));
+	float z_near = f;
+	float z_far = 10;
+
 
 public:
 
@@ -19,8 +26,8 @@ public:
 		//font
 		cfi.cbSize = sizeof(cfi); 
 		GetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
-		cfi.dwFontSize.X = 8; 
-		cfi.dwFontSize.Y = 8;
+		cfi.dwFontSize.X = 2; 
+		cfi.dwFontSize.Y = 4;
 		wcscpy_s(cfi.FaceName, L"Consolas");
 		SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 
