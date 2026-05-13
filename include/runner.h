@@ -1,5 +1,7 @@
 #pragma once
 #include"buffer.h"
+#include"linal.h"
+#include"mesh.h"
 class Runner {
 
 	HANDLE hConsole; 
@@ -9,13 +11,22 @@ class Runner {
 	CONSOLE_FONT_INFOEX cfi;
 
 	Buffer buf;
-	short Hei = 120, Wid = 480;
+	short Hei = 240, Wid = 480;
 	float a = ((float)Hei / Wid)*2;
 
 	const float FOV = 90;
 	float f = 1 / (tan(toRad(FOV / 2)));
 	float z_near = f;
 	float z_far = 10;
+
+	Mat4x4 proj = {
+			{
+			{a * f, 0, 0, 0},
+			{0, f, 0, 0},
+			{0, 0, z_far / (z_far - z_near), 1},
+			{0, 0, -z_far * z_near / (z_far - z_near), 0}
+			}
+	};
 
 
 public:
@@ -26,8 +37,8 @@ public:
 		//font
 		cfi.cbSize = sizeof(cfi); 
 		GetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
-		cfi.dwFontSize.X = 2; 
-		cfi.dwFontSize.Y = 4;
+		cfi.dwFontSize.X = 1; 
+		cfi.dwFontSize.Y = 2;
 		wcscpy_s(cfi.FaceName, L"Consolas");
 		SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 
@@ -64,7 +75,10 @@ public:
 			SWP_NOMOVE | SWP_NOSIZE |
 			SWP_NOZORDER | SWP_FRAMECHANGED
 		);
+
 	}
 	
+	void update(Mesh& mesh, float&ang);
+	void render(Mesh& mesh);
 	void run();
 };
