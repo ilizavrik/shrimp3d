@@ -1,6 +1,8 @@
 #include"runner.h"
 #include"linal.h"
 #include"Mesh.h"
+
+
 void Runner::update(Mesh& mesh, float& ang) {
 	mesh.angs[mesh.y].setang(ang);
 	ang++;
