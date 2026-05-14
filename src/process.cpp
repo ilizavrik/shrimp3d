@@ -5,7 +5,7 @@
 
 void Runner::update(Mesh& mesh, float& ang) {
 	mesh.angs[mesh.y].setang(ang);
-	ang++;
+	ang += 5;
 }
 
 void Runner::render(Mesh& mesh) {

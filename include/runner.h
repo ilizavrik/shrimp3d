@@ -11,7 +11,7 @@ class Runner {
 	CONSOLE_FONT_INFOEX cfi;
 
 	Buffer buf;
-	short Hei = 240, Wid = 480;
+	short Hei = 240, Wid = 720;
 	float a = ((float)Hei / Wid)*2;
 
 	const float FOV = 90;
