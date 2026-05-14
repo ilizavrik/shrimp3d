@@ -98,12 +98,12 @@ struct Mesh {
 		return T * rz * ry * rx;
 	}
 
-	// Внутри структуры Mesh или рядом с ней:
+	
 	bool loadFromObj(string filename) {
 		ifstream file(filename);
 		if (!file.is_open()) return false;
 
-		// Очищаем текущие данные, если нужно загрузить новый меш
+		
 		points.clear();
 		triangles.clear();
 
