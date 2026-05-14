@@ -8,9 +8,10 @@ void Runner::run() {
 	
 	Mesh fuck;
 	fuck.worldCords = {0, 0, 2, 1};
+	bool  a = fuck.loadFromObj("mlem.obj");
 	float ang = 0;
 
-	PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	//PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	while (true) {
 		buf.clear();
 
@@ -19,6 +20,7 @@ void Runner::run() {
 
 		buf.flip();
 
+		printf("\r%d", a);
 		//Sleep(8);
 	}
 }

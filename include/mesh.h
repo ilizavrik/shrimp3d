@@ -4,9 +4,13 @@
 #include<vector>
 #include<array>
 #include<map>
+#include<fstream>
+#include <sstream>
+#include<string>
 using std::array; 
 using std::vector;
-
+using std::string;
+using std::ifstream;
 struct Mesh {
 	Vec4 worldCords;
 	vector<Vec4> points;
@@ -92,5 +96,48 @@ struct Mesh {
 		T(3, 2) = worldCords[2];
 
 		return T * rz * ry * rx;
+	}
+
+	// Внутри структуры Mesh или рядом с ней:
+	bool loadFromObj(string filename) {
+		ifstream file(filename);
+		if (!file.is_open()) return false;
+
+		// Очищаем текущие данные, если нужно загрузить новый меш
+		points.clear();
+		triangles.clear();
+
+		string line;
+		while (getline(file, line)) {
+			std::stringstream ss(line);
+			string prefix;
+			ss >> prefix;
+
+			if (prefix == "v") {
+				Vec4 v;
+				v[3] = 1.0f;
+				ss >> v[0] >> v[1] >> v[2];
+				points.push_back(v);
+			}
+			else if (prefix == "f") {
+				array<int, 3> face;
+				for (int i = 0; i < 3; ++i) {
+					string vertexData;
+					ss >> vertexData;
+
+					size_t firstSlash = vertexData.find('/');
+					if (firstSlash != string::npos) {
+						face[i] = std::stoi(vertexData.substr(0, firstSlash)) - 1;
+					}
+					else {
+						face[i] = std::stoi(vertexData) - 1;
+					}
+				}
+				triangles.push_back(face);
+			}
+		}
+
+		file.close();
+		return true;
 	}
 };
